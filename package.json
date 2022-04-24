@@ -18,13 +18,13 @@
   },
   "homepage": "https://github.com/gitdevries/gome-dns#readme",
   "dependencies": {
-    "dns2": "^2.0.1",
+    "dns-packet": "^5.3.1",
     "pino": "^7.9.2",
     "pino-pretty": "^7.6.0"
   },
   "devDependencies": {
-    "@types/dns2": "^2.0.1",
     "@types/node": "^17.0.25",
-    "@types/pino": "^7.0.5"
+    "@types/pino": "^7.0.5",
+    "@types/dns-packet": "^5.2.4"
   }
 }
