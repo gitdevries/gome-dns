@@ -1,24 +1,27 @@
-const logger = require('./logger');
+// TODO: Make it typescript ready!
 
-const { Packet } = require('dns2');
-const dns = require('dns');
+import logger from './logger';
+import Resolver from '../resolvers';
 
-const CLOUDFLARE = '1.1.1.1';
-const GOOGLE = '4.4.4.4';
+import { DnsRequest, DnsResponse, Packet } from 'dns2';
+import * as dns from 'dns';
+import { RemoteInfo } from 'dgram';
 
-class DNS {
-    constructor(resolver = CLOUDFLARE) {
-        dns.setServers([CLOUDFLARE]);
+export default new class DNS {
 
-        this.request = null;
-        this.requestInfo = null;
+    private request: object;
+    private rinfo: RemoteInfo;
+    private response: DnsResponse;
 
-        this.additional = null;
-        this.question = null;
-        this.response = null;
+    private additional: object;
+    private question: object;
+
+
+    constructor(resolver: Resolver = Resolver.CLOUDFLARE) {
+        dns.setServers([resolver]);
     }
 
-    parseRequest(request) {
+    parseRequest(request: DnsRequest) {
         const [additional] = request.additionals;
         const [question] = request.questions;
 
@@ -27,7 +30,7 @@ class DNS {
         this.question = question;
     }
 
-    getOptions() {
+    getOptions(): dns.LookupOptions | dns.LookupAllOptions {
         const { family } = this.requestInfo;
 
         let options = { all: true };
@@ -39,15 +42,17 @@ class DNS {
         if (family === 'IPv6') {
             options = { family: 6 };
         }
+
+        return options;
     }
 
-    resolve(request, info) {
-        this.requestInfo = info;
+    resolve(request: DnsRequest, info: RemoteInfo): DnsResponse {
+        this.rinfo = info;
         this.parseRequest(request);
         const options = this.getOptions();
 
         const { name } = this.question;
-        const { address, family } = this.requestInfo;
+        const { address, family } = this.rinfo;
 
         logger.info('Request from "%s" for "%s" via "%s"', address, name, family);
 
@@ -66,6 +71,3 @@ class DNS {
         return this.response;
     }
 }
-
-
-module.exports = new DNS();
