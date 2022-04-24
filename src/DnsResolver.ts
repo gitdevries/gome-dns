@@ -12,7 +12,17 @@ export default new class DnsResolver {
         return Math.floor(Math.random() * (max - min + 1)) + min
     }
 
+    /**
+     * Resolved dns query via own json records to override or create custom endpoints
+     */
     private gomeResolve() {
+
+    }
+
+    /**
+     * Check if the DNS query is saved withing the local gome cache for faster resolving
+     */
+    private cacheResolve() {
 
     }
 
