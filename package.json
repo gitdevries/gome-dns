@@ -1,0 +1,25 @@
+{
+  "name": "gome-dns",
+  "version": "1.0.0",
+  "description": "GitDeVries home dns resolver",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitdevries/gome-dns.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gitdevries/gome-dns/issues"
+  },
+  "homepage": "https://github.com/gitdevries/gome-dns#readme",
+  "dependencies": {
+    "dns2": "^2.0.1",
+    "pino": "^7.9.2",
+    "pino-pretty": "^7.6.0"
+  }
+}
